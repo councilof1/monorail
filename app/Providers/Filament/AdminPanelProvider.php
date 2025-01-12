@@ -58,11 +58,6 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Resources/AdminResource/Widgets'), for: 'App\Filament\Resources\AdminResource\Widgets')
-            ->widgets([
-                Widgets\AdminWidgets::class,
-               # Widgets\FilamentInfoWidget::class,
-            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

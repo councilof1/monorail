@@ -16,4 +16,9 @@ class Project extends Model
     protected $casts = [
         'active' => 'boolean',
     ];
+
+    public static function count()
+    {
+        return static::where('active', 1)->count() ;
+    }
 }

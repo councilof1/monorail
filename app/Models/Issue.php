@@ -17,11 +17,17 @@ class Issue extends Model
         'complete',
     ];
     protected $casts = [
-        'billable' => 'boolean',
+        'complete' => 'boolean',
+        'attachment' => 'array',
     ];
 
     public static function whereDate(string $string, \Illuminate\Support\Carbon $today)
     {
+    }
+
+    public static function count()
+    {
+        return static::where('complete', 1)->count() ;
     }
 
     public function project(): BelongsTo

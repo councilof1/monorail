@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\IssueResource\Pages;
 use App\Filament\Resources\IssueResource\RelationManagers;
 use App\Models\Issue;
+use Carbon\Carbon;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -17,7 +18,7 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Table;
 use App\Models\User;
 use Filament\Forms\Components\FileUpload;
-use Filament\Tables\Columns\BadgeColumn;
+//use Filament\Tables\Columns\BadgeColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -31,6 +32,9 @@ class IssueResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Toggle::make('complete')
+                    ->default(true)
+                    ->columnSpanFull(),
                 Select::make('project')
                     ->searchable()
                     ->columnSpanFull()
@@ -61,7 +65,6 @@ class IssueResource extends Resource
                         'closed' => 'Closed',
                         'resolved' => 'Resolved',
                         'notResolved' => 'Not Resolved',
-
                     ])
             ]);
     }
@@ -86,6 +89,9 @@ class IssueResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->label('Status'),
+                Tables\Columns\IconColumn::make('complete')
+                    ->label('Complete')
+                    ->boolean(),
             ])
             ->filters([
                 //
