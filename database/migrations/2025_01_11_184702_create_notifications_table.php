@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_profile', function (Blueprint $table) {
-            $table->id();
-            $table->string('project_name')->nullable();
-            $table->string('project_description')->nullable();
-            $table->boolean('active')->default(true);
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type');
+            $table->morphs('notifiable');
+            $table->text('data');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_profile');
+        Schema::dropIfExists('notifications');
     }
 };

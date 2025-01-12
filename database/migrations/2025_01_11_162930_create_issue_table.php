@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_profile', function (Blueprint $table) {
+        Schema::create('issue', function (Blueprint $table) {
             $table->id();
-            $table->string('project_name')->nullable();
-            $table->string('project_description')->nullable();
-            $table->boolean('active')->default(true);
+            $table->foreignIdFor(\App\Models\Project::class);
+            $table->string('project');
+            $table->longText('issue_description');
+            $table->string('assigned_to');
+            $table->string('attachment');
+            $table->string('status');
+            $table->boolean('complete');
             $table->timestamps();
         });
     }
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_profile');
+        Schema::dropIfExists('issue');
     }
 };
